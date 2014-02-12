@@ -8,10 +8,10 @@ namespace GDataStructures
 {
     public class GQueue<T>
     {
-        private T[] m_items;
-        private int m_queueCapacity;
-        private int m_itemCount;
-        private int m_currentIndex;
+        private T[] _items;
+        private int _queueCapacity;
+        private int _itemCount;
+        private int _currentIndex;
 
         public GQueue() : this(100)
         {
@@ -19,54 +19,54 @@ namespace GDataStructures
 
         public GQueue(int initialSize)
         {
-            m_itemCount = 0;
-            m_currentIndex = 0;
-            m_queueCapacity = initialSize;
-            m_items = new T[initialSize];
+            _itemCount = 0;
+            _currentIndex = 0;
+            _queueCapacity = initialSize;
+            _items = new T[initialSize];
         }
 
         public void Enqueue(T item)
         {
-            if (m_itemCount >= m_queueCapacity)
+            if (_itemCount >= _queueCapacity)
                 ResizeArray();
-            var insertIndex = (m_currentIndex + m_itemCount) % m_queueCapacity;
-            m_items[insertIndex] = item;
-            m_itemCount++;
+            var insertIndex = (_currentIndex + _itemCount) % _queueCapacity;
+            _items[insertIndex] = item;
+            _itemCount++;
         }
 
         private void ResizeArray()
         {
-            m_queueCapacity += 50;
-            var newItems = new T[m_queueCapacity];
-            for (var i = 0; i < m_itemCount; i++)
+            _queueCapacity += 50;
+            var newItems = new T[_queueCapacity];
+            for (var i = 0; i < _itemCount; i++)
             {
-                newItems[i] = m_items[m_currentIndex];
-                m_currentIndex++;
-                if (m_currentIndex >= m_items.Count())
-                    m_currentIndex = 0;
+                newItems[i] = _items[_currentIndex];
+                _currentIndex++;
+                if (_currentIndex >= _items.Count())
+                    _currentIndex = 0;
             }
-            m_items = newItems;
-            m_currentIndex = 0;
+            _items = newItems;
+            _currentIndex = 0;
         }
 
         public T Dequeue()
         {
-            var retVal = m_items[m_currentIndex];
-            m_itemCount--;
-            m_currentIndex++;
-            if (m_currentIndex >= m_queueCapacity)
-                m_currentIndex = 0;
+            var retVal = _items[_currentIndex];
+            _itemCount--;
+            _currentIndex++;
+            if (_currentIndex >= _queueCapacity)
+                _currentIndex = 0;
             return retVal;
         }
 
         public int Capacity()
         {
-            return m_queueCapacity;
+            return _queueCapacity;
         }
 
         public int Count()
         {
-            return m_itemCount;
+            return _itemCount;
         }
     }
 }

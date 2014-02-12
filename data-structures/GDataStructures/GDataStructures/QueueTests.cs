@@ -13,6 +13,7 @@ namespace GDataStructures
         private GQueue<int> intQueue;
         private GQueue<int> resizeQueue;
         private GQueue<int> circularIndexQueue;
+        private GQueue<string> stringQueue;
             
         [SetUp]
         public void InitialiseTests()
@@ -32,6 +33,11 @@ namespace GDataStructures
             circularIndexQueue.Enqueue(2);
             circularIndexQueue.Enqueue(3);
             circularIndexQueue.Enqueue(4);
+
+            stringQueue = new GQueue<string>();
+            stringQueue.Enqueue("first");
+            stringQueue.Enqueue("second");
+            stringQueue.Enqueue("third");
         }
 
         [Test]
@@ -84,6 +90,24 @@ namespace GDataStructures
             circularIndexQueue.Enqueue(6);
             Assert.AreEqual(circularIndexQueue.Capacity(), 4);  //no resize needed
             Assert.AreEqual(circularIndexQueue.Count(), 3);  
+        }
+
+        [Test]
+        public void TestStringQueue()
+        {
+            Assert.AreEqual(stringQueue.Count(), 3);
+            Assert.AreEqual(stringQueue.Dequeue(),"first");
+
+            Assert.AreEqual(stringQueue.Count(), 2);
+            Assert.AreEqual(stringQueue.Dequeue(), "second");
+
+            Assert.AreEqual(stringQueue.Count(), 1);
+            Assert.AreEqual(stringQueue.Dequeue(), "third");
+
+            Assert.AreEqual(stringQueue.Count(), 0);
+
+            stringQueue.Enqueue("fourth");
+            Assert.AreEqual(stringQueue.Dequeue(), "fourth");
         }
     }
 }
