@@ -1,0 +1,34 @@
+﻿<Window x:Class="TrainsWpf.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:graphxctrl="clr-namespace:GraphX.Controls;assembly=GraphX.Controls"
+        xmlns:local="clr-namespace:TrainsWpf.Models" xmlns:graphX="clr-namespace:GraphX;assembly=GraphX.Controls"
+        Title="MainWindow" Height="550" Width="725">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <graphxctrl:ZoomControl x:Name="GgZoomctrl" Grid.Column="0">
+            <local:GraphAreaTrains x:Name="GgArea" />
+            
+        </graphxctrl:ZoomControl>
+        <StackPanel Grid.Column="1">
+            <Button Command="{Binding LoadGraphFromFileCommand}"  VerticalAlignment="Top" Margin="1">Load</Button>
+            <Border BorderBrush="Black" BorderThickness="1" Padding="2">
+                <StackPanel>
+                    <Label FontWeight="Bold">Calculate route distance:</Label>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Route:</Label>
+                        <TextBox Text="" MinWidth="60" x:Name="routeTextBox"></TextBox>
+                        
+                    </StackPanel>
+                    <Button Command="{Binding GetDistanceForRouteCommand}" CommandParameter="{Binding Text, ElementName=routeTextBox}">Calculate Distance</Button>
+                    <TextBox Text="{Binding DistanceForRoute}"></TextBox>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+    
+</Window>
