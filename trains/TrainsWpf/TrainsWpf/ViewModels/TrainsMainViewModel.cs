@@ -30,6 +30,7 @@ namespace TrainsWpf.ViewModels
 
         public ICommand LoadGraphFromFileCommand { get; private set; }
         public ICommand GetDistanceForRouteCommand { get; private set; }
+        public ICommand GetShortestRouteCommand { get; private set; }
         public GraphAreaTrains GraphArea { get; set; }
         
         private string _distanceForRoute;
@@ -92,6 +93,7 @@ namespace TrainsWpf.ViewModels
             _trainGraph = new TrainGraph();
             LoadGraphFromFileCommand = new LoadGraphFromFileCommand(this);
             GetDistanceForRouteCommand = new GetDistanceForRouteCommand(this);
+            GetShortestRouteCommand = new GetShortestRouteCommand(this);
             SetLogicCoreProperties();
             GraphArea = graphArea;
             GraphArea.LogicCore = _logicCoreTrains;
@@ -212,8 +214,10 @@ namespace TrainsWpf.ViewModels
             Func<DataEdge, double> edgeCost = e => e.Weight;
             var startVertex = _trainGraph.Vertices.First(x => x.Text == _routeStartName);
             var tryGetPaths = _trainGraph.ShortestPathsDijkstra(edgeCost, startVertex);
+            //var tryGetPaths = _trainGraph.ShortestPathsDag(edgeCost, startVertex);
             var destinationVertex = _trainGraph.Vertices.First(x => x.Text == _routeEndName);
             IEnumerable<DataEdge> route;
+
             if (tryGetPaths(destinationVertex, out route))
             {
                 var dataEdges = route as IList<DataEdge> ?? route.ToList();

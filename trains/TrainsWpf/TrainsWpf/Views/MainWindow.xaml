@@ -25,7 +25,32 @@
                         
                     </StackPanel>
                     <Button Command="{Binding GetDistanceForRouteCommand}" CommandParameter="{Binding Text, ElementName=routeTextBox}">Calculate Distance</Button>
-                    <TextBox Text="{Binding DistanceForRoute}"></TextBox>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Distance:</Label>
+                        <TextBox Text="{Binding DistanceForRoute}" MinWidth="100"></TextBox>
+                        </StackPanel>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Padding="2">
+                <StackPanel>
+                    <Label FontWeight="Bold">Find Shortest Route:</Label>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="40">Start:</Label>
+                        <TextBox Text="{Binding RouteStartName}" MinWidth="60" x:Name="startTextBox"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="40">End:</Label>
+                        <TextBox Text="{Binding RouteEndName}" MinWidth="60" x:Name="endTextBox"></TextBox>
+                        </StackPanel>
+                    <Button Command="{Binding GetShortestRouteCommand}">Find Route</Button>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Route:</Label>
+                        <TextBox Text="{Binding ShortestRoute}" MinWidth="100"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Distance:</Label>
+                        <TextBox Text="{Binding ShortestRouteDistance}" MinWidth="100"></TextBox>
+                       </StackPanel>
                 </StackPanel>
             </Border>
         </StackPanel>
